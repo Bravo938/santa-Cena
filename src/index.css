@@ -1,0 +1,138 @@
+@import url("https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&family=Spectral:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --color-noche: #151a2d;
+  --color-medianoche: #1d2340;
+  --color-ceniza: #ece6d9;
+  --color-bruma: #aeb2c7;
+  --color-sangre: #c2372d;
+  --color-sangre-clara: #e8776c;
+  --color-lampara: #f2bd5c;
+
+  --font-display: "Spectral", Georgia, serif;
+  --font-sans: "Hanken Grotesk", system-ui, sans-serif;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    background-color: var(--color-noche);
+    color: var(--color-ceniza);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  #root {
+    width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
+  }
+
+  img,
+  svg,
+  video,
+  canvas {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  a,
+  button {
+    max-width: 100%;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 300;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  p,
+  li,
+  span,
+  a,
+  button {
+    overflow-wrap: anywhere;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-lampara);
+    outline-offset: 3px;
+  }
+}
+
+/* ---------- La puerta ---------- */
+.puerta {
+  transition: filter 1.2s ease;
+}
+.puerta-abierta {
+  filter: drop-shadow(0 0 48px rgb(242 189 92 / 0.45));
+}
+.hoja {
+  transform-box: fill-box;
+  transition: transform 1.2s cubic-bezier(0.65, 0.02, 0.2, 1);
+}
+.hoja-izq {
+  transform-origin: left center;
+}
+.hoja-der {
+  transform-origin: right center;
+}
+.puerta-abierta .hoja {
+  transform: scaleX(0.06);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* El momento principal: la sangre marca la puerta una sola vez */
+  .marca {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: trazo 1.4s ease-out forwards;
+  }
+  .llama {
+    transform-box: fill-box;
+    transform-origin: center bottom;
+    animation: llama 2.4s ease-in-out infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .hoja,
+  .puerta {
+    transition: none;
+  }
+}
+
+@keyframes trazo {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes llama {
+  0%,
+  100% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(0.88, 1.12) rotate(2deg);
+  }
+}
